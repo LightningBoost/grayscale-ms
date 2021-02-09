@@ -14,5 +14,7 @@ generator client {
 model Purchases {
   id      Int         @default(autoincrement()) @id
   date    DateTime    @default(now())
-  amount  Float
+  amount  Float       @default(0)
+  fiat    Float       @default(0)
+  total   Float       @default(0)
 }

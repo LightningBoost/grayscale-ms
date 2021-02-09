@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Purchases" ADD COLUMN     "fiat" DECIMAL(65,30) NOT NULL DEFAULT 0;
