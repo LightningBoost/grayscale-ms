@@ -1,9 +1,12 @@
 import { ApolloServer, gql } from 'apollo-server';
 import { GraphQLDateTime } from 'graphql-iso-date';
+import cron from 'node-cron';
 import prisma from './database';
+import queryGrayscale from './jobs/queryGrayscale';
 
 const serverPort = 4001;
 
+// graphql definitions
 const typeDefs = gql`
   scalar Date
 
@@ -12,6 +15,7 @@ const typeDefs = gql`
     id: ID!
     date: Date!
     amount: Float!
+    fiat: Float!
   }
 
   type Query {
@@ -27,6 +31,11 @@ const resolvers = {
 };
 
 const server = new ApolloServer({ resolvers, typeDefs });
+
+// cron job definition
+cron.schedule('0 19 * * *', () => queryGrayscale(), {
+  timezone: 'America/Sao_Paulo',
+});
 
 server.listen({ port: serverPort }, () => {
   console.log(`Server listening at ${serverPort}`); // eslint-disable-line
