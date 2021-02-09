@@ -8,7 +8,6 @@ const getGrayscaleAmount = async (): Promise<{ total: number; date: Date }> => {
   const page = await browser.newPage();
   await page.setViewport({ width: 1920, height: 1080 });
   await page.goto('https://grayscale.co/bitcoin-trust/');
-  await page.screenshot({ path: 'screenshot.png' });
   await page.waitForSelector(
     '.overview-data > tbody:nth-child(1) > tr:nth-child(10) > td:nth-child(2)'
   );
