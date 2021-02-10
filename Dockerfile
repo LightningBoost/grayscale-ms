@@ -1,4 +1,4 @@
-FROM node:lts-alpine
+FROM node:lts-slim
 
 WORKDIR /app
 
@@ -6,11 +6,13 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 ENV NODE_ENV=production
 
+RUN apt-get update
+
 # Install Chromium
-RUN apk add chromium
+RUN apt-get install chromium -y
 
 # Install yarn
-RUN apk add yarn
+RUN apt-get install yarn -y
 
 COPY package.json /app/package.json
 RUN yarn install --silent
