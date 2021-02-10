@@ -4,7 +4,7 @@ import cron from 'node-cron';
 import prisma from './database';
 import queryGrayscale from './jobs/queryGrayscale';
 
-const serverPort = 4001;
+const serverPort = 4000;
 
 // graphql definitions
 const typeDefs = gql`
