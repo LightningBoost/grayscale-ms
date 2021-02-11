@@ -27,3 +27,6 @@ RUN yarn run generate
 RUN yarn build
 
 EXPOSE 4000
+
+# Start the app
+CMD ["yarn", "run", "start"]
