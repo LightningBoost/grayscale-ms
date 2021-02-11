@@ -26,3 +26,4 @@ RUN yarn run generate
 # Build the app
 RUN yarn build
 
+EXPOSE 4000
