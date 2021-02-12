@@ -3,6 +3,7 @@
 
 datasource db {
   provider = "postgresql"
+  url = "foo"
 }
 
 generator client {
