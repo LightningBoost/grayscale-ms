@@ -40,6 +40,7 @@
     "axios": "^0.21.1",
     "currency.js": "^2.0.3",
     "dayjs": "^1.10.4",
+    "dotenv": "^8.2.0",
     "graphql": "^15.5.0",
     "graphql-iso-date": "^3.6.1",
     "node-cron": "^2.0.3",

@@ -29,5 +29,4 @@ RUN yarn build
 EXPOSE 4000
 
 # Start the app
-CMD ["yarn", "run", "migrate:prod"]
 CMD ["yarn", "run", "start"]

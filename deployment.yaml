@@ -21,8 +21,6 @@ spec:
           ports:
             - containerPort: 4000
           env:
-            - name: DATABASE
-              value: "grayscale"
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
@@ -40,5 +38,6 @@ spec:
     - protocol: TCP
       targetPort: 4000
       port: 4000
+  type: NodePort
   selector:
     app: grayscale-ms

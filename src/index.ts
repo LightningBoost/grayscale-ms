@@ -1,8 +1,11 @@
+import dotenv from 'dotenv';
 import { ApolloServer, gql } from 'apollo-server';
 import { GraphQLDateTime } from 'graphql-iso-date';
 import cron from 'node-cron';
 import prisma from './database';
 import queryGrayscale from './jobs/queryGrayscale';
+
+dotenv.config();
 
 const serverPort = 4000;
 
