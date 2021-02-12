@@ -2,7 +2,11 @@ import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import dayjs from 'dayjs';
 
-const getGrayscaleAmount = async (): Promise<{ total: number; date: Date }> => {
+const getGrayscaleAmount = async (): Promise<{
+  shares: number;
+  bitcoinsPerShare: number;
+  date: Date;
+}> => {
   puppeteer.use(StealthPlugin());
   const browser = await puppeteer.launch();
   try {
@@ -42,7 +46,7 @@ const getGrayscaleAmount = async (): Promise<{ total: number; date: Date }> => {
     // close browser
     await browser.close();
 
-    return { total: sharesValue * btcShareValue, date };
+    return { shares: sharesValue, bitcoinsPerShare: btcShareValue, date };
   } catch (e) {
     await browser.close();
     throw e;

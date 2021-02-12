@@ -14,8 +14,11 @@ const typeDefs = gql`
   type Grayscale {
     id: ID!
     date: Date!
-    amount: Float!
+    shares: Float!
+    bitcoinsPerShare: Float!
     fiat: Float!
+    bought: Float!
+    bitcoinPrice: Float!
   }
 
   type Query {

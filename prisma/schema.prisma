@@ -12,9 +12,12 @@ generator client {
 
 
 model Purchases {
-  id      Int         @default(autoincrement()) @id
-  date    DateTime    @default(now())
-  amount  Float       @default(0)
-  fiat    Float       @default(0)
-  total   Float       @default(0)
+  id                Int         @default(autoincrement()) @id
+  date              DateTime    @default(now())
+  shares            Float       @default(0)
+  bitcoinsPerShare  Float       @default(0)
+  fiat              Float       @default(0)
+  bought            Float       @default(0)
+  bitcoinPrice      Float       @default(0)
+  total             Float       @default(0)
 }

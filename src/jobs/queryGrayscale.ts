@@ -6,7 +6,7 @@ import prisma from '../database';
 
 const queryGrayscale = async (): Promise<void> => {
   try {
-    const { date, total } = await getGrayscaleAmount();
+    const { date, shares, bitcoinsPerShare } = await getGrayscaleAmount();
     const lastUpdate = await prisma.purchases.findFirst({
       orderBy: { date: 'desc' },
     });
@@ -22,6 +22,10 @@ const queryGrayscale = async (): Promise<void> => {
       return;
     }
 
+    // total of bitcoins in possession
+    const total = Currency(shares).multiply(bitcoinsPerShare).value;
+
+    // amount bought today by grayscale
     const boughtToday = Currency(total).subtract(lastUpdate?.total || 0).value;
 
     const {
@@ -31,9 +35,12 @@ const queryGrayscale = async (): Promise<void> => {
     await prisma.purchases.create({
       data: {
         date,
-        amount: boughtToday,
+        bought: boughtToday,
+        shares,
+        bitcoinsPerShare,
         fiat: Currency(boughtToday).multiply(btcPrice).value,
         total,
+        bitcoinPrice: btcPrice,
       },
     });
   } catch (e) {
