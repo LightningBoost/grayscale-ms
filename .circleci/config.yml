@@ -1,6 +1,4 @@
 version: 2.1
-orbs:
-  node: circleci/node@4.1.0
 jobs:
   build:
     docker:
@@ -12,10 +10,6 @@ jobs:
       - checkout
       - setup_remote_docker:
           version: 19.03.13
-      - run:
-          name: Deploy changes to DB
-          command: |
-            npm run migrate:prod
       - run:
           name: Build Docker image
           command: |
