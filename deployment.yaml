@@ -29,7 +29,7 @@ spec:
           lifecycle:
             postStart:
               exec:
-                command: ["/bin/bash", "npx prisma migrate deploy --preview-feature"]
+                command: ["/bin/bash", "-c", "npx prisma migrate deploy --preview-feature"]
 ---
 apiVersion: v1
 kind: Service
