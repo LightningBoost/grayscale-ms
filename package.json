@@ -4,7 +4,7 @@
   "description": "",
   "main": "build/index.js",
   "scripts": {
-    "build": "rimraf build && yarn run generate && tsc",
+    "build": "rimraf build && tsc",
     "dev": "nodemon --watch 'src/' --exec 'ts-node src/index.ts' -e ts",
     "generate": "npx prisma generate",
     "migrate:dev": "npx prisma migrate dev --preview-feature",
