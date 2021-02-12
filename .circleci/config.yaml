@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: circleci/buildpack-deps:stretch
     environment:
-      IMAGE_NAME: lightningboost/grayscale-ms:latest
+      IMAGE_NAME: lightningboost/grayscale-ms
     working_directory: ~/app
     steps:
       - checkout
