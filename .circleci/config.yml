@@ -11,6 +11,10 @@ jobs:
       - setup_remote_docker:
           version: 19.03.13
       - run:
+          name: Deploy changes to DB
+          command: |
+            npm run migrate:prod
+      - run:
           name: Build Docker image
           command: |
             docker build -t $IMAGE_NAME:latest .
