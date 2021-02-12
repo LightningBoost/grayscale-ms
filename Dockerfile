@@ -21,7 +21,7 @@ RUN yarn install --silent
 COPY . /app
 
 # Generate prisma
-RUN yarn run generate
+# RUN yarn run generate -- excluded
 
 # Build the app
 RUN yarn build
