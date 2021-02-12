@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grayscale-ms
+  namespace: default
+  labels:
+    app: grayscale-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grayscale-ms
+  template:
+    metadata:
+      labels:
+        app: grayscale-ms
+    spec:
+      containers:
+        - name: grayscale-ms
+          image: lightningboost/grayscale-ms:latest
+          ports:
+            - containerPort: 4000
+              name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grayscale-ms
+  labels:
+    app: grayscale-ms
+spec:
+  ports:
+    - protocol: TCP
+      targetPort: 4000
+      port: 4000
+  selector:
+    app: grayscale-ms
