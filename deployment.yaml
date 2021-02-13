@@ -18,6 +18,7 @@ spec:
       containers:
         - name: grayscale-ms
           image: lightningboost/grayscale-ms:$COMMIT_SHA1
+          args: ["--cap-add=SYS_ADMIN"]
           ports:
             - containerPort: 4000
           env:

@@ -1,4 +1,4 @@
-FROM node:lts-slim
+FROM node:latest
 
 WORKDIR /app
 
@@ -14,11 +14,8 @@ RUN apt-get update \
     && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
        --no-install-recommends \
     && apt-get install yarn -y \
+    && apt-get install dumb-init -y \
     && rm -rf /var/lib/apt/lists/*
-
-# Kill browsers instances that remains open
-ADD https://github.com/Yelp/dumb-init/releases/download/v1.2.2/dumb-init_1.2.2_x86_64 /usr/local/bin/dumb-init
-RUN chmod +x /usr/local/bin/dumb-init
 
 COPY package.json /app/package.json
 RUN yarn install --silent
@@ -38,6 +35,9 @@ RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
 
 # Build the app
 RUN yarn build
+
+# For puppeteer
+RUN echo 'kernel.unprivileged_userns_clone=1' > /etc/sysctl.d/userns.conf
 
 EXPOSE 4000
 
