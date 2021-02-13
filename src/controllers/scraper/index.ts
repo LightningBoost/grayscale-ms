@@ -8,7 +8,11 @@ const getGrayscaleAmount = async (): Promise<{
   date: Date;
 }> => {
   puppeteer.use(StealthPlugin());
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  });
   try {
     const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 1080 });

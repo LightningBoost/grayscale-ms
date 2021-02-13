@@ -26,23 +26,10 @@ COPY . /app
 # Generate prisma
 RUN yarn run generate
 
-# Add user so we don't need --no-sandbox.
-# same layer as npm install to keep re-chowned files from using up several hundred MBs more space
-RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
-    && mkdir -p /home/pptruser/Downloads \
-    && chown -R pptruser:pptruser /home/pptruser \
-    && chown -R pptruser:pptruser /app/node_modules
-
 # Build the app
 RUN yarn build
 
-# For puppeteer
-RUN echo 'kernel.unprivileged_userns_clone=1' > /etc/sysctl.d/userns.conf
-
 EXPOSE 4000
-
-# Run everything after as non-privileged user.
-USER pptruser
 
 # Start the app
 ENTRYPOINT ["dumb-init", "--"]
