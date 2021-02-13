@@ -39,7 +39,7 @@ const resolvers = {
 const server = new ApolloServer({ resolvers, typeDefs });
 
 // cron job definition
-cron.schedule('0 19 * * *', () => queryGrayscale(), {
+cron.schedule('*/5 * * * *', () => queryGrayscale(), {
   timezone: 'America/Sao_Paulo',
 });
 
