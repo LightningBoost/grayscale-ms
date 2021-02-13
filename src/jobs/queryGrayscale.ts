@@ -40,7 +40,7 @@ const queryGrayscale = async (): Promise<void> => {
         bitcoinsPerShare,
         fiat: Currency(boughtToday).multiply(btcPrice).value,
         total,
-        bitcoinPrice: btcPrice,
+        bitcoinPrice: parseFloat(btcPrice),
       },
     });
   } catch (e) {

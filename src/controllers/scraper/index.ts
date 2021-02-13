@@ -50,7 +50,11 @@ const getGrayscaleAmount = async (): Promise<{
     // close browser
     await browser.close();
 
-    return { shares: sharesValue, bitcoinsPerShare: btcShareValue, date };
+    return {
+      shares: parseFloat(sharesValue),
+      bitcoinsPerShare: parseFloat(btcShareValue),
+      date,
+    };
   } catch (e) {
     await browser.close();
     throw e;
