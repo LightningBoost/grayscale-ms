@@ -6,6 +6,11 @@ import prisma from '../database';
 
 const queryGrayscale = async (): Promise<void> => {
   try {
+    // check if it's weekend
+    if (dayjs().day() === 0 || dayjs().day() === 6) {
+      return;
+    }
+
     const { date, shares, bitcoinsPerShare } = await getGrayscaleAmount();
     const lastUpdate = await prisma.purchases.findFirst({
       orderBy: { date: 'desc' },

@@ -226,3 +226,6 @@ yarn.lock
 
 # Build
 build
+
+# Secret file
+postgres_connection_secret.yaml
