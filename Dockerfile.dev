@@ -1,11 +1,20 @@
-FROM node:lts-slim
+FROM node:latest
 
 WORKDIR /app
 
-# Install Chromium
-RUN apt-get update
-RUN apt-get install chromium -y
-RUN apt-get install yarn -y
+ENV PATH /app/node_modules/.bin:$PATH
+
+RUN apt-get update \
+    && apt-get install -y wget gnupg \
+    && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+    && apt-get update \
+    && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 openssl \
+       --no-install-recommends \
+    && apt-get install yarn -y \
+    && apt-get install dumb-init -y \
+    && rm -rf /var/lib/apt/lists/*
+
 
 COPY package.json /app/package.json
 
