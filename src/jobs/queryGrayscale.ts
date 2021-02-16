@@ -1,5 +1,4 @@
 import axios from 'axios';
-import dayjs from 'dayjs';
 import Currency from 'currency.js';
 import getGrayscaleAmount from '../controllers/scraper';
 import prisma from '../database';
