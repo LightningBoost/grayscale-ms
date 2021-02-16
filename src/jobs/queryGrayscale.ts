@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Currency from 'currency.js';
+import dayjs from 'dayjs';
 import getGrayscaleAmount from '../controllers/scraper';
 import prisma from '../database';
 
@@ -11,7 +12,7 @@ const queryGrayscale = async (): Promise<void> => {
     });
 
     // execute scraper
-    const { date, shares, bitcoinsPerShare } = await getGrayscaleAmount();
+    const { shares, bitcoinsPerShare } = await getGrayscaleAmount();
 
     // total of bitcoins in possession
     const total = Currency(shares).multiply(bitcoinsPerShare).value;
@@ -25,7 +26,7 @@ const queryGrayscale = async (): Promise<void> => {
 
     await prisma.purchases.create({
       data: {
-        date,
+        date: dayjs().toDate(),
         bought: boughtToday,
         shares,
         bitcoinsPerShare,
