@@ -11,7 +11,6 @@ const queryGrayscale = async (): Promise<void> => {
       return;
     }
 
-    const { date, shares, bitcoinsPerShare } = await getGrayscaleAmount();
     const lastUpdate = await prisma.purchases.findFirst({
       orderBy: { date: 'desc' },
     });
@@ -20,6 +19,9 @@ const queryGrayscale = async (): Promise<void> => {
     if (lastUpdate && dayjs(lastUpdate.date).isSame(dayjs(), 'day')) {
       return;
     }
+
+    // execute scraper
+    const { date, shares, bitcoinsPerShare } = await getGrayscaleAmount();
 
     // if grayscale still didn't update the data, schedule to run in 1h
     if (lastUpdate && dayjs(lastUpdate.date).isSame(date, 'day')) {
