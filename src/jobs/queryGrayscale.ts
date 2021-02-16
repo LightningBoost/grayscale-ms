@@ -6,28 +6,13 @@ import prisma from '../database';
 
 const queryGrayscale = async (): Promise<void> => {
   try {
-    // check if it's weekend
-    if (dayjs().day() === 0 || dayjs().day() === 6) {
-      return;
-    }
-
+    // last day
     const lastUpdate = await prisma.purchases.findFirst({
       orderBy: { date: 'desc' },
     });
 
-    // if data is already updated
-    if (lastUpdate && dayjs(lastUpdate.date).isSame(dayjs(), 'day')) {
-      return;
-    }
-
     // execute scraper
     const { date, shares, bitcoinsPerShare } = await getGrayscaleAmount();
-
-    // if grayscale still didn't update the data, schedule to run in 1h
-    if (lastUpdate && dayjs(lastUpdate.date).isSame(date, 'day')) {
-      setTimeout(() => queryGrayscale(), 3.6e6);
-      return;
-    }
 
     // total of bitcoins in possession
     const total = Currency(shares).multiply(bitcoinsPerShare).value;
